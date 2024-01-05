@@ -10,7 +10,7 @@ ENV MODE="cluster" \
     FUNCTION_MODE="all" \
     JAVA_HOME="/usr/lib/jvm/java-1.8-openjdk" \
     NACOS_USER="nacos" \
-    JAVA="/usr/lib/jvm/jjava-1.8-openjdk/bin/java" \
+    JAVA="/usr/lib/jvm/java-1.8-openjdk/bin/java" \
     JVM_XMS="1g" \
     JVM_XMX="1g" \
     JVM_XMN="512m" \
@@ -20,12 +20,12 @@ ENV MODE="cluster" \
     TOMCAT_ACCESSLOG_ENABLED="false" \
     TIME_ZONE="Asia/Shanghai"
 
-ARG NACOS_VERSION=2.3.0
+ARG NACOS_VERSION=2.2.0
 ARG HOT_FIX_FLAG=""
 
 WORKDIR $BASE_DIR
 
-RUN apk add --no-cache openjdk8-jre curl \
+RUN apk add --no-cache openjdk8-jre curl bash \
     && curl -SL https://github.com/alibaba/nacos/releases/download/${NACOS_VERSION}${HOT_FIX_FLAG}/nacos-server-${NACOS_VERSION}.tar.gz -o /home/nacos-server.tar.gz \
     && tar -xzvf /home/nacos-server.tar.gz -C /home \
     && rm -rf /home/nacos-server.tar.gz /home/nacos/bin/* /home/nacos/conf/*.properties /home/nacos/conf/*.example /home/nacos/conf/nacos-mysql.sql \

@@ -38,16 +38,13 @@ jobs:
             type=ref,event=tag,prefix=v
 
       - name: 构建并发布镜像
-        env:
-          # `github.ref_name` == git tag triggered build
-          NACOS_VERSION: ${{github.ref_name}}
         uses: docker/build-push-action@v3
         with:
           context: .
           file: Dockerfile
           platforms: linux/amd64,linux/arm64/v8
           build-args: |
-            NACOS_VERSION=$NACOS_VERSION
+            NACOS_VERSION=${{github.ref_name}}
           push: true
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
